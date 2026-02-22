@@ -1,5 +1,6 @@
 let totalInterview = []
 let totalRejected = []
+let currentStatus = ''
 
 const total = document.getElementById("total")
 const currentInterview = document.getElementById("interview")
@@ -37,6 +38,8 @@ function btnToggle(id) {
     const selected = document.getElementById(id)
     selected.classList.remove('btn-soft')
 
+    currentStatus = id
+
     if (id === 'interview-btn') {
         allCards.classList.add('hidden')
         filteredSection.classList.add('hidden')
@@ -45,6 +48,7 @@ function btnToggle(id) {
             noJobs.classList.add('hidden')
             // allCards.classList.add('hidden')
             filteredSection.classList.remove('hidden')
+            renderedInterview()
         }
     }
     else if (id === 'rejected-btn') {
@@ -55,7 +59,7 @@ function btnToggle(id) {
             // allCards.classList.add('hidden')
             noJobs.classList.add('hidden')
             filteredSection.classList.remove('hidden')
-
+            renderedRejected()
         }
     }
     else if (id === 'all-btn') {
@@ -93,6 +97,7 @@ cardSection.addEventListener('click', function (event) {
         }
         // console.log(jobInfo)
 
+        totalRejected = totalRejected.filter(i => i.title !== jobInfo.title)
         const jobInfoExist = totalInterview.find(i => i.title == jobInfo.title)
 
         if (!jobInfoExist) {
@@ -103,6 +108,13 @@ cardSection.addEventListener('click', function (event) {
         calculateTracker()
         renderedInterview()
         // console.log(totalInterview)
+
+        if (currentStatus == 'rejected-btn') {
+            renderedRejected()
+            if (totalRejected.length < 1) {
+                noJobs.classList.remove('hidden')
+            }
+        }
     }
     else if (event.target.classList.contains('card-reject-btn')) {
         const jobActionsParrent = event.target.parentNode.parentNode
@@ -127,7 +139,7 @@ cardSection.addEventListener('click', function (event) {
             discription
         }
         // console.log(jobInfo)
-
+        totalInterview = totalInterview.filter(i => i.title !== jobInfo.title)
         const jobInfoExist = totalRejected.find(i => i.title == jobInfo.title)
 
         if (!jobInfoExist) {
@@ -135,6 +147,13 @@ cardSection.addEventListener('click', function (event) {
         }
         calculateTracker()
         renderedRejected()
+
+        if (currentStatus == 'interview-btn') {
+            renderedInterview()
+            if (totalInterview.length < 1) {
+                noJobs.classList.remove('hidden')
+            }
+        }
     }
 })
 
@@ -161,8 +180,8 @@ function renderedInterview() {
                 <p class="discription">${interview.discription}</p>
 
                 <div>
-                    <button class="btn btn-outline btn-success">INTERVIEW</button>
-                    <button class="btn btn-outline btn-error">REJECTED</button>
+                    <button class="btn btn-outline btn-success card-interview-btn">INTERVIEW</button>
+                    <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
             <div>
@@ -200,8 +219,8 @@ function renderedRejected() {
                 <p class="discription">${rejected.discription}</p>
 
                 <div>
-                    <button class="btn btn-outline btn-success">INTERVIEW</button>
-                    <button class="btn btn-outline btn-error">REJECTED</button>
+                    <button class="btn btn-outline btn-success card-interview-btn">INTERVIEW</button>
+                    <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
             <div>
