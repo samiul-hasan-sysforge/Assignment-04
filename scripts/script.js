@@ -3,6 +3,7 @@ let totalRejected = []
 let currentStatus = ''
 
 const total = document.getElementById("total")
+const sideTotal = document.getElementById('side-total')
 const currentInterview = document.getElementById("interview")
 const currentRejected = document.getElementById("rejected")
 
@@ -13,7 +14,7 @@ const interviewBtn = document.getElementById("interview-btn")
 const rejectedBtn = document.getElementById("rejected-btn")
 
 const noJobs = document.getElementById('no-jobs')
-// const noReject = document.getElementById('no-reject')
+
 
 const filteredSection = document.getElementById("filtered-section")
 
@@ -24,6 +25,7 @@ function calculateTracker() {
     total.innerText = allCards.children.length
     currentInterview.innerText = totalInterview.length
     currentRejected.innerText = totalRejected.length
+    // sideTotal.innerText = allCards.children.length
 }
 calculateTracker()
 
@@ -50,6 +52,7 @@ function btnToggle(id) {
             filteredSection.classList.remove('hidden')
             renderedInterview()
         }
+        sideTotal.innerText = `${totalInterview.length} / ${allCards.children.length}`
     }
     else if (id === 'rejected-btn') {
         allCards.classList.add('hidden')
@@ -61,11 +64,13 @@ function btnToggle(id) {
             filteredSection.classList.remove('hidden')
             renderedRejected()
         }
+        sideTotal.innerText = `${totalRejected.length} / ${allCards.children.length}`
     }
     else if (id === 'all-btn') {
         allCards.classList.remove('hidden')
         noJobs.classList.add('hidden')
         filteredSection.classList.add('hidden')
+        sideTotal.innerText = allCards.children.length
     }
 }
 
@@ -105,7 +110,7 @@ cardSection.addEventListener('click', function (event) {
         }
 
 
-        calculateTracker()
+        // calculateTracker()
         renderedInterview()
         // console.log(totalInterview)
 
@@ -145,7 +150,7 @@ cardSection.addEventListener('click', function (event) {
         if (!jobInfoExist) {
             totalRejected.push(jobInfo)
         }
-        calculateTracker()
+        // calculateTracker()
         renderedRejected()
 
         if (currentStatus == 'interview-btn') {
