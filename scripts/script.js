@@ -25,7 +25,7 @@ function calculateTracker() {
     total.innerText = allCards.children.length
     currentInterview.innerText = totalInterview.length
     currentRejected.innerText = totalRejected.length
-    // sideTotal.innerText = allCards.children.length
+    sideTotal.innerText = allCards.children.length
 }
 calculateTracker()
 
