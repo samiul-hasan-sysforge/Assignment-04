@@ -164,6 +164,16 @@ cardSection.addEventListener('click', function (event) {
             sideTotal.innerText = `${totalInterview.length} of ${allCards.children.length}`
         }
     }
+    else if (event.target.classList.contains('dlt-btn')) {
+        // const parent = event.target.parentNode.parentNode
+        // parent.classList.add('hidden')
+        // total.innerText = allCards.children.length - 1
+
+        const card = event.target.closest('.job-card')
+        card.remove()
+        calculateTracker()
+        sideTotal.innerText = allCards.children.length
+    }
 })
 
 
