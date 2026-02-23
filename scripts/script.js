@@ -25,10 +25,10 @@ function calculateTracker() {
     total.innerText = allCards.children.length
     currentInterview.innerText = totalInterview.length
     currentRejected.innerText = totalRejected.length
-    sideTotal.innerText = allCards.children.length
+
 }
 calculateTracker()
-
+sideTotal.innerText = allCards.children.length
 
 
 
@@ -52,7 +52,7 @@ function btnToggle(id) {
             filteredSection.classList.remove('hidden')
             renderedInterview()
         }
-        sideTotal.innerText = `${totalInterview.length} / ${allCards.children.length}`
+        sideTotal.innerText = `${totalInterview.length} of ${allCards.children.length}`
     }
     else if (id === 'rejected-btn') {
         allCards.classList.add('hidden')
@@ -64,7 +64,7 @@ function btnToggle(id) {
             filteredSection.classList.remove('hidden')
             renderedRejected()
         }
-        sideTotal.innerText = `${totalRejected.length} / ${allCards.children.length}`
+        sideTotal.innerText = `${totalRejected.length} of ${allCards.children.length}`
     }
     else if (id === 'all-btn') {
         allCards.classList.remove('hidden')
@@ -110,21 +110,23 @@ cardSection.addEventListener('click', function (event) {
         }
 
 
-        // calculateTracker()
+        calculateTracker()
         renderedInterview()
         // console.log(totalInterview)
 
         if (currentStatus == 'rejected-btn') {
             renderedRejected()
+            sideTotal.innerText = `${totalRejected.length} of ${allCards.children.length}`
             if (totalRejected.length < 1) {
                 noJobs.classList.remove('hidden')
             }
         }
+
     }
     else if (event.target.classList.contains('card-reject-btn')) {
         const jobActionsParrent = event.target.parentNode.parentNode
 
-        jobActionsParrent.querySelector('.job-status').innerText = 'REJECTED'
+        jobActionsParrent.querySelector('.job-status').innerText = 'RJEECTED'
 
         const title = jobActionsParrent.querySelector('.title').innerText
         const skill = jobActionsParrent.querySelector('.skill').innerText
@@ -150,14 +152,16 @@ cardSection.addEventListener('click', function (event) {
         if (!jobInfoExist) {
             totalRejected.push(jobInfo)
         }
-        // calculateTracker()
+        calculateTracker()
         renderedRejected()
 
         if (currentStatus == 'interview-btn') {
             renderedInterview()
+
             if (totalInterview.length < 1) {
                 noJobs.classList.remove('hidden')
             }
+            sideTotal.innerText = `${totalInterview.length} of ${allCards.children.length}`
         }
     }
 })
