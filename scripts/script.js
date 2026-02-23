@@ -164,15 +164,22 @@ cardSection.addEventListener('click', function (event) {
             sideTotal.innerText = `${totalInterview.length} of ${allCards.children.length}`
         }
     }
-    else if (event.target.classList.contains('dlt-btn')) {
+    else if (event.target.closest('.dlt-btn')) {
         // const parent = event.target.parentNode.parentNode
         // parent.classList.add('hidden')
         // total.innerText = allCards.children.length - 1
 
         const card = event.target.closest('.job-card')
         card.remove()
-        calculateTracker()
+
+        // const parent = event.target.closest('.job-card')
+        const title = card.querySelector('.title').innerText
+        // console.log(title)
         sideTotal.innerText = allCards.children.length
+
+        totalInterview = totalInterview.filter(i => i.title !== title)
+        totalRejected = totalRejected.filter(i => i.title !== title)
+        calculateTracker()
     }
 })
 
@@ -203,7 +210,7 @@ function renderedInterview() {
                     <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
-            <div>
+            <div class="btn">
                 <i class="fa-solid fa-trash"></i>
             </div>
         </div>
@@ -242,7 +249,7 @@ function renderedRejected() {
                     <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
-            <div>
+            <div class="btn">
                 <i class="fa-solid fa-trash"></i>
             </div>
         </div>
