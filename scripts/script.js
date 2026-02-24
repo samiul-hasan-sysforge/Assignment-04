@@ -81,7 +81,10 @@ cardSection.addEventListener('click', function (event) {
     if (event.target.classList.contains('card-interview-btn')) {
         const jobActionsParrent = event.target.parentNode.parentNode
 
-        jobActionsParrent.querySelector('.job-status').innerText = 'INTERVIEW'
+        const statusEl = jobActionsParrent.querySelector('.job-status')
+        statusEl.innerText = 'INTERVIEW'
+        statusEl.classList.add('bg-green-500/20')
+
 
         const title = jobActionsParrent.querySelector('.title').innerText
         const skill = jobActionsParrent.querySelector('.skill').innerText
@@ -126,7 +129,9 @@ cardSection.addEventListener('click', function (event) {
     else if (event.target.classList.contains('card-reject-btn')) {
         const jobActionsParrent = event.target.parentNode.parentNode
 
-        jobActionsParrent.querySelector('.job-status').innerText = 'RJEECTED'
+        const statusEl = jobActionsParrent.querySelector('.job-status')
+        statusEl.innerText = 'RJEECTED'
+        statusEl.classList.add('bg-red-500/20')
 
         const title = jobActionsParrent.querySelector('.title').innerText
         const skill = jobActionsParrent.querySelector('.skill').innerText
@@ -180,6 +185,22 @@ cardSection.addEventListener('click', function (event) {
         totalInterview = totalInterview.filter(i => i.title !== title)
         totalRejected = totalRejected.filter(i => i.title !== title)
         calculateTracker()
+
+        if (currentStatus === 'interview-btn') {
+            renderedInterview()
+
+            if (totalInterview.length < 1) {
+                noJobs.classList.remove('hidden')
+            }
+            sideTotal.innerText = `${totalInterview.length} of ${allCards.children.length}`
+        }
+        else if (currentStatus === 'rejected-btn') {
+            renderedRejected()
+            if (totalRejected.length < 1) {
+                noJobs.classList.remove('hidden')
+            }
+            sideTotal.innerText = `${totalRejected.length} of ${allCards.children.length}`
+        }
     }
 })
 
@@ -190,8 +211,9 @@ function renderedInterview() {
     for (let interview of totalInterview) {
         // console.log(interview)
         let div = document.createElement('div')
+        div.classList.add('job-card', 'bg-white', 'p-8', 'rounded-md', 'shadow-xl', 'flex', 'justify-between')
+
         div.innerHTML = `
-        <div class="bg-white p-8 rounded-md shadow-xl flex justify-between">
             <div class="space-y-5">
                 <div>
                     <h4 class="text-2xl font-medium title">${interview.title}</h4>
@@ -202,7 +224,7 @@ function renderedInterview() {
                     <li class="job-type list-disc list-inside">${interview.jobType}</li>
                     <li class="job-salary list-disc list-inside">${interview.jobSalary}</li>
                 </ul>
-                <p class="btn job-status">${interview.jobStatus}</p>
+                <p class="btn job-status bg-green-500/20">${interview.jobStatus}</p>
                 <p class="discription">${interview.discription}</p>
 
                 <div>
@@ -210,10 +232,9 @@ function renderedInterview() {
                     <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
-            <div class="btn">
+            <div class="btn dlt-btn">
                 <i class="fa-solid fa-trash"></i>
             </div>
-        </div>
         `
 
         filteredSection.appendChild(div)
@@ -229,8 +250,8 @@ function renderedRejected() {
     for (let rejected of totalRejected) {
         // console.log(interview)
         let div = document.createElement('div')
+        div.classList.add('job-card', 'bg-white', 'p-8', 'rounded-md', 'shadow-xl', 'flex', 'justify-between')
         div.innerHTML = `
-        <div class="bg-white p-8 rounded-md shadow-xl flex justify-between">
             <div class="space-y-5">
                 <div>
                     <h4 class="text-2xl font-medium title">${rejected.title}</h4>
@@ -241,7 +262,7 @@ function renderedRejected() {
                     <li class="job-type list-disc list-inside">${rejected.jobType}</li>
                     <li class="job-salary list-disc list-inside">${rejected.jobSalary}</li>
                 </ul>
-                <p class="btn job-status">${rejected.jobStatus}</p>
+                <p class="btn job-status bg-red-500/20">${rejected.jobStatus}</p>
                 <p class="discription">${rejected.discription}</p>
 
                 <div>
@@ -249,10 +270,9 @@ function renderedRejected() {
                     <button class="btn btn-outline btn-error card-reject-btn">REJECTED</button>
                 </div>
             </div>
-            <div class="btn">
+            <div class="btn dlt-btn">
                 <i class="fa-solid fa-trash"></i>
             </div>
-        </div>
         `
 
         filteredSection.appendChild(div)
