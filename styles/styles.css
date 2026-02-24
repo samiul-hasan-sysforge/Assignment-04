@@ -1,3 +1,118 @@
 body {
     font-family: "Geist", sans-serif;
 }
+
+.card-interview-btn {
+    margin-right: 10px;
+}
+
+
+@media screen and (max-width: 576px) {
+    .site-title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .total-tracker {
+        grid-area: total;
+    }
+
+    .interview-tracker {
+        grid-area: interview;
+    }
+
+    .rejected-tracker {
+        grid-area: rejected;
+    }
+
+    .tracker {
+        display: grid;
+        text-align: center;
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "total total "
+            "interview rejected";
+    }
+
+
+
+
+    .available-jobs {
+        font-size: 20px;
+    }
+
+    .side-total {
+        font-size: 13px;
+    }
+
+
+
+
+    .py-11 {
+        display: flex;
+        gap: 12px;
+    }
+
+    .py-11 button {
+        flex: auto;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+
+
+    .title {
+        font-size: 20px;
+    }
+
+    .skill {
+        font-size: 13px;
+    }
+
+
+    ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .job-info li {
+        font-size: 15px;
+        gap: 0;
+        list-style: none;
+    }
+
+    .job-status,
+    .card-interview-btn,
+    .card-reject-btn {
+        font-size: 12px;
+    }
+
+    .discription {
+        /* padding-right: 0; */
+        font-size: 15px;
+    }
+
+
+
+    .job-card {
+        flex-direction: column;
+        position: relative;
+    }
+
+    .dlt-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    #no-jobs img {
+        width: 30%;
+        height: 30%;
+    }
+
+    #no-jobs h4,
+    p {
+        font-size: 1rem;
+    }
+}
